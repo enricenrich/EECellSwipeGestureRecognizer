@@ -4,18 +4,18 @@ A clean and easy way to implement swipe actions to UITableViewCell. You'll simpl
 
 This library is writen in Swift based on [DRCellSlideGestureRecognizer](https://github.com/DavdRoman/DRCellSlideGestureRecognizer) by [David Román](https://github.com/DavdRoman/).
 
-# Features
+## Features
 
 * UITableView/UITableViewCell class agnostic.
 * Setup multiple actions for multiple cell fractions.
 * Fully customizable.
 * Block-driven.
 
-# Installation
+## Installation
 
 > **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
 
-## CocoaPods
+### CocoaPods
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
@@ -25,13 +25,13 @@ use_frameworks!
 pod 'EECellSwipeGestureRecognizer', '~> 0.1'
 ```
 
-## Manual
+### Manual
 
 Drag and copy all files in the `Source` folder into your project.
 
 ## At a glance
 
-## Setting up actions
+### Setting up actions
 
 First instatiate `EECellSwipeGestureRecognizer` to later add the actions:
 
@@ -58,7 +58,7 @@ cell.addGestureRecognizer(gestureRecognizer)
 
 *Note: The given instructions should be performed inside tableView:cellForRowAtIndexPath: method or in the subclass if you created it.*
 
-# Customizing actions
+### Customizing actions
 
 There are multiple `EECellSwipeAction` properties available for you to customize the appearence and interactivity of the cell:
 
@@ -75,6 +75,6 @@ There are multiple `EECellSwipeAction` properties available for you to customize
 * `didTrigger`: block that's triggered when the cell has already behaved accordingly to its behavior property. Here you should perform the main task for the cell action.
 * `didChangeState`: block that's triggered then the action reaches its active/unactive state.
 
-# License
+## License
 
 EECellSwipeGestureRecognizer is available under the MIT license.
