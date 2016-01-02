@@ -2,7 +2,7 @@
 
 A clean and easy way to implement swipe actions to UITableViewCell. You'll simply have to add a gesture recognizer to the cells that you want. That's all; you don't have to subclass anything.
 
-This library is writen in Swift based on [https://github.com/DavdRoman/DRCellSlideGestureRecognizer](DRCellSlideGestureRecognizer) by [https://github.com/DavdRoman/](David Román).
+This library is writen in Swift based on [DRCellSlideGestureRecognizer](https://github.com/DavdRoman/DRCellSlideGestureRecognizer) by [David Román](https://github.com/DavdRoman/).
 
 # Features
 
@@ -13,9 +13,17 @@ This library is writen in Swift based on [https://github.com/DavdRoman/DRCellSli
 
 # Installation
 
+> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+
 ## CocoaPods
 
-pod 'EECellSwipeGestureRecognizer'
+```
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'EECellSwipeGestureRecognizer', '~> 0.1'
+```
 
 ## Manual
 
