@@ -81,6 +81,33 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         }
     }
     
+    public func removeActions(actions: Array<EECellSwipeAction>) {
+        for action in actions {
+            if action.fraction > 0 {
+                if let index = self.leftActions.indexOf(action) {
+                    self.leftActions.removeAtIndex(index)
+                }
+            } else {
+                if let index = self.rightActions.indexOf(action) {
+                    self.rightActions.removeAtIndex(index)
+                }
+            }
+        }
+    }
+    
+    public func removeLeftActions() {
+        self.leftActions.removeAll()
+    }
+    
+    public func removeRightActions() {
+        self.rightActions.removeAll()
+    }
+    
+    public func removeAllActions() {
+        self.leftActions.removeAll()
+        self.rightActions.removeAll()
+    }
+    
     public func swipeToOrigin(animated: Bool) {
         self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, damping: 0.65, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()

@@ -23,8 +23,6 @@ class MainViewController: UITableViewController {
         self.title = "EECellSwipeGestureRecognizer"
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadTableData")
-        
         self.prepareDataArray()
         
         self.tableView.tableFooterView = UIView()
@@ -51,11 +49,6 @@ class MainViewController: UITableViewController {
     
     // MARK: Private API
     
-    @objc private func reloadTableData() {
-        self.prepareDataArray()
-        self.tableView.reloadData()
-    }
-    
     private func prepareDataArray() {
         self.rows = [self.rightPushSwipeCell, self.leftPullSwipeCell, self.rightAndLeftSwipeCell]
     }
@@ -74,6 +67,13 @@ class MainViewController: UITableViewController {
         rightPushAction.behavior = .Push
         rightPushAction.didTrigger = { (tableView, indexPath) in
             print("Right Push")
+            
+            let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                slideGestureRecognizer.swipeToOrigin(true)
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         
         slideGestureRecognizer.addActions([rightPushAction])
@@ -114,6 +114,13 @@ class MainViewController: UITableViewController {
         rightPushAction.behavior = .Push
         rightPushAction.didTrigger = { (tableView, indexPath) in
             print("Right Push")
+            
+            let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                slideGestureRecognizer.swipeToOrigin(true)
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         
         let leftPullAction: EECellSwipeAction = EECellSwipeAction(fraction: -0.25)
