@@ -12,6 +12,8 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
 
     // MARK: Properties
     
+    public var isSwipeActive: Bool = false
+    
     private var leftActions: Array<EECellSwipeAction> = []
     private var rightActions: Array<EECellSwipeAction> = []
     
@@ -246,11 +248,17 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
                     self.actionView.removeFromSuperview()
                 }
                 
+                if self.actionView.action?.behavior == .Push {
+                    self.isSwipeActive = true
+                }
+                
                 if let didTrigger = self.actionView.action?.didTrigger, let tableView = self.tableView, let indexPath = self.indexPath {
                     didTrigger(tableView: tableView, indexPath: indexPath)
                 }
             })
         } else {
+            self.isSwipeActive = false
+            
             self.translateCellHorizontally(0.0, animationDuration: self.animationTime, damping: 0.65, completion: { (finished) -> Void in
                 self.actionView.removeFromSuperview()
             })
