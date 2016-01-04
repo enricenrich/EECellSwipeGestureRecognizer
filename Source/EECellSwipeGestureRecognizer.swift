@@ -117,9 +117,13 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         self.rightActions.removeAll()
     }
     
-    public func swipeToOrigin(animated: Bool) {
+    public func swipeToOrigin(animated: Bool, completion: ((finished: Bool) -> Void)?) {
         self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()
+            
+            if let completion = completion {
+                completion(finished: finished)
+            }
         })
     }
     
@@ -236,7 +240,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         }
     }
     
-    private func translateCellHorizontally(horizontalTranslation: CGFloat, animationDuration: NSTimeInterval, completion: ((finished: Bool) -> Void)) {
+    private func translateCellHorizontally(horizontalTranslation: CGFloat, animationDuration: NSTimeInterval, completion: ((finished: Bool) -> Void)?) {
         UIView.animateWithDuration(animationDuration, delay: 0.0, options: .TransitionNone , animations: { () -> Void in
             self.translateCellHorizontally(horizontalTranslation)
         }, completion: completion)
