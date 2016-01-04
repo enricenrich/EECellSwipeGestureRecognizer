@@ -70,7 +70,7 @@ class MainViewController: UITableViewController {
             
             let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                slideGestureRecognizer.swipeToOrigin(true)
+                slideGestureRecognizer.swipeToOrigin(true, completion: nil)
             }))
             
             self.presentViewController(alert, animated: true, completion: nil)
@@ -117,7 +117,7 @@ class MainViewController: UITableViewController {
             
             let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                slideGestureRecognizer.swipeToOrigin(true)
+                slideGestureRecognizer.swipeToOrigin(true, completion: nil)
             }))
             
             self.presentViewController(alert, animated: true, completion: nil)
