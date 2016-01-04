@@ -50,7 +50,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
                 
                 cell.insertSubview(self.actionView, atIndex: 0)
                 
-                self.actionView.frame = cell.bounds
+                self.actionView.frame = cell.contentView.bounds
                 self.actionView.active = false
             case .Changed:
                 self.updateCellPosition()
