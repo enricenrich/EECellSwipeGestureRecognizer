@@ -248,7 +248,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     
     private func performAction() {
         if self.actionView.active {
-            let horizontalTranslation = self.horizontalTranslationForActionBehaviour()
+            let horizontalTranslation = self.horizontalTranslationForActionBehavior()
             
             if let willTrigger = self.actionView.action?.willTrigger, let tableView = self.tableView, let indexPath = self.indexPath {
                 willTrigger(tableView: tableView, indexPath: indexPath)
@@ -276,7 +276,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         }
     }
     
-    private func horizontalTranslationForActionBehaviour() -> CGFloat {
+    private func horizontalTranslationForActionBehavior() -> CGFloat {
         if let action = self.actionView.action, let cell = self.cell {
             return action.behavior == .Pull ? 0 : cell.contentView.frame.width * (action.fraction / fabs(action.fraction))
         }
