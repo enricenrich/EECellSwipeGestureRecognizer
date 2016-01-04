@@ -13,13 +13,12 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     // MARK: Properties
     
     public var isSwipeActive: Bool = false
+    public var animationTime: NSTimeInterval = 0.2 // Default is 0.2
     
     private var leftActions: Array<EECellSwipeAction> = []
     private var rightActions: Array<EECellSwipeAction> = []
     
     private var actionView: EECellSwipeActionView = EECellSwipeActionView()
-    
-    private let animationTime: NSTimeInterval = 0.4
     
     // MARK: Initialize
     
@@ -111,7 +110,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     }
     
     public func swipeToOrigin(animated: Bool) {
-        self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, damping: 0.65, completion: { (finished) -> Void in
+        self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()
         })
     }
@@ -229,8 +228,8 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         }
     }
     
-    private func translateCellHorizontally(horizontalTranslation: CGFloat, animationDuration: NSTimeInterval, damping: CGFloat, completion: ((finished: Bool) -> Void)) {
-        UIView.animateWithDuration(animationDuration, delay: 0.0, usingSpringWithDamping: damping, initialSpringVelocity: 1.0, options: .TransitionNone, animations: { () -> Void in
+    private func translateCellHorizontally(horizontalTranslation: CGFloat, animationDuration: NSTimeInterval, completion: ((finished: Bool) -> Void)) {
+        UIView.animateWithDuration(animationDuration, delay: 0.0, options: .TransitionNone , animations: { () -> Void in
             self.translateCellHorizontally(horizontalTranslation)
         }, completion: completion)
     }
@@ -243,7 +242,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
                 willTrigger(tableView: tableView, indexPath: indexPath)
             }
             
-            self.translateCellHorizontally(horizontalTranslation, animationDuration: self.animationTime, damping: 0.65, completion: { (finished) -> Void in
+            self.translateCellHorizontally(horizontalTranslation, animationDuration: self.animationTime, completion: { (finished) -> Void in
                 if self.actionView.action?.behavior == .Pull {
                     self.actionView.removeFromSuperview()
                 }
@@ -259,7 +258,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         } else {
             self.isSwipeActive = false
             
-            self.translateCellHorizontally(0.0, animationDuration: self.animationTime, damping: 0.65, completion: { (finished) -> Void in
+            self.translateCellHorizontally(0.0, animationDuration: self.animationTime, completion: { (finished) -> Void in
                 self.actionView.removeFromSuperview()
             })
         }
