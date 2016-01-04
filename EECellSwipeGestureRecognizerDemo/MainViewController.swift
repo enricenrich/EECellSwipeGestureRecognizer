@@ -58,7 +58,6 @@ class MainViewController: UITableViewController {
     private lazy var rightPushSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Right Push"
-        cell.contentView.backgroundColor = UIColor.whiteColor()
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
         
@@ -86,7 +85,6 @@ class MainViewController: UITableViewController {
     private lazy var leftPullSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Left Pull"
-        cell.contentView.backgroundColor = UIColor.whiteColor()
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
         
@@ -107,7 +105,6 @@ class MainViewController: UITableViewController {
     private lazy var rightAndLeftSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Right Push & Left Pull"
-        cell.contentView.backgroundColor = UIColor.whiteColor()
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
         

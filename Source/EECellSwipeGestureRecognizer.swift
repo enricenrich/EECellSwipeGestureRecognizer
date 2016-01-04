@@ -44,13 +44,20 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
             case .Began:
                 self.sortActions()
                 
+                if self.actionView.superview != nil {
+                    self.actionView.removeFromSuperview()
+                }
+                
                 cell.insertSubview(self.actionView, atIndex: 0)
-                cell.contentView.backgroundColor = cell.contentView.backgroundColor?.colorWithAlphaComponent(1.0)
                 
                 self.actionView.frame = cell.bounds
                 self.actionView.active = false
             case .Changed:
                 self.updateCellPosition()
+                
+                if let tableView = self.tableView where CGColorGetAlpha(cell.contentView.backgroundColor?.CGColor) == 0 {
+                    cell.contentView.backgroundColor = tableView.backgroundColor
+                }
                 
                 if self.isActiveForCurrentCellPosition() != self.actionView.active {
                     self.actionView.active = self.isActiveForCurrentCellPosition()
