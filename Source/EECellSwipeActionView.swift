@@ -49,7 +49,7 @@ public class EECellSwipeActionView: UIView {
     public func cellDidUpdatePosition(cell: UITableViewCell) {
         if let image = self.iconImageView.image, let action = self.action {
             self.updateIconFrame()
-            self.iconImageView.alpha = fabs(cell.frame.origin.x) / (image.size.width + action.iconMargin * 2)
+            self.iconImageView.alpha = fabs(cell.contentView.frame.origin.x) / (image.size.width + action.iconMargin * 2)
         }
     }
     

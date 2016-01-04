@@ -17,7 +17,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     
     private var leftActions: Array<EECellSwipeAction> = []
     private var rightActions: Array<EECellSwipeAction> = []
-    
+        
     private var actionView: EECellSwipeActionView = EECellSwipeActionView()
     
     // MARK: Initialize
@@ -44,9 +44,10 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
             case .Began:
                 self.sortActions()
                 
-                cell.superview?.insertSubview(self.actionView, atIndex: 0)
+                cell.insertSubview(self.actionView, atIndex: 0)
+                cell.contentView.backgroundColor = cell.contentView.backgroundColor?.colorWithAlphaComponent(1.0)
                 
-                self.actionView.frame = cell.frame
+                self.actionView.frame = cell.bounds
                 self.actionView.active = false
             case .Changed:
                 self.updateCellPosition()
@@ -179,7 +180,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     
     private func fractionForCurrentCellPosition() -> CGFloat {
         if let cell = self.cell {
-            return cell.frame.origin.x / cell.frame.width
+            return cell.contentView.frame.origin.x / cell.contentView.frame.width
         }
         
         return 0.0
@@ -224,7 +225,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     
     private func translateCellHorizontally(horizontalTranslation: CGFloat) {
         if let cell = cell {
-            cell.center = CGPointMake(cell.frame.width / 2 + horizontalTranslation, cell.center.y)
+            cell.contentView.center = CGPointMake(cell.contentView.frame.width / 2 + horizontalTranslation, cell.contentView.center.y)
         }
     }
     
@@ -266,7 +267,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     
     private func horizontalTranslationForActionBehaviour() -> CGFloat {
         if let action = self.actionView.action, let cell = self.cell {
-            return action.behavior == .Pull ? 0 : cell.frame.width * (action.fraction / fabs(action.fraction))
+            return action.behavior == .Pull ? 0 : cell.contentView.frame.width * (action.fraction / fabs(action.fraction))
         }
         
         return 0.0
