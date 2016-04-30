@@ -15,8 +15,8 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
     public var isSwipeActive: Bool = false
     public var animationTime: NSTimeInterval = 0.2 // Default is 0.2
     
-    private var leftActions: Array<EECellSwipeAction> = []
-    private var rightActions: Array<EECellSwipeAction> = []
+    private var leftActions: [EECellSwipeAction] = []
+    private var rightActions: [EECellSwipeAction] = []
         
     private var actionView: EECellSwipeActionView = EECellSwipeActionView()
     
@@ -26,7 +26,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
         super.init(target: nil, action: nil)
         
         self.delegate = self
-        self.addTarget(self, action: "handlePan")
+        self.addTarget(self, action: #selector(EECellSwipeGestureRecognizer.handlePan))
     }
     
     // MARK: UIGestureRecognizerDelegate
