@@ -78,3 +78,7 @@ There are multiple `EECellSwipeAction` properties available for you to customize
 ## License
 
 EECellSwipeGestureRecognizer is available under the MIT license.
+
+## Contact
+
+You can find me on Twitter ([@enricenrich](https://twitter.com/enricenrich)) or on my [website](http://enric.co).
