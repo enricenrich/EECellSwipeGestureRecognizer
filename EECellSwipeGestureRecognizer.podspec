@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'EECellSwipeGestureRecognizer'
-  s.version = '0.4.3'
+  s.version = '0.5.0'
   s.license = 'MIT'
   s.summary = 'Clean and easy way to implement swipe actions to UITableViewCell'
   s.homepage = 'https://github.com/enricenrich/EECellSwipeGestureRecognizer'
