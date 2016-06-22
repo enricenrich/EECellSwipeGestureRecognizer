@@ -4,15 +4,22 @@ xcode_workspace: EECellSwipeGestureRecognizer.workspace
 xcode_scheme: EECellSwipeGestureRecognizer
 xcode_sdk: iphonesimulator9.3
 env:
-  global: 
-    - FRAMEWORK_NAME=EECellSwipeGestureRecognizer
+  global:
+  - FRAMEWORK_NAME=EECellSwipeGestureRecognizer
 before_install:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
+- brew update
+- brew outdated carthage || brew upgrade carthage
 before_script:
-  # bootstrap the dependencies for the project
-  # you can remove if you don't have dependencies
-  - carthage bootstrap  
+- carthage bootstrap
 before_deploy:
-  - carthage build --no-skip-current
-  - carthage archive $FRAMEWORK_NAME
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: WDiUPhqKUUims9wAnI8JrgoZH6/zti++5In0jbI2gdDJ2T1WuN2leBnEjNqV57c/O6joLEUQQtC6YRLKVvsDxLZtUmjImDcREAvbQ21k0GLefo5ttsdfDR5AB7vvw0KBtcCy5pgnVRal6XWaHx6ppFb6Yizlz+H1bZ1CfAFXhEzfJG5B770/XYdTIKsAbPSJBvt54DPvl4N4VU2q8gjncM/E55X8O0oQmh+1uCEF/UkeP/nsy93vpSULndLrT1pWELcX3TD+gj1To/X/GYbhAb72DfJATy2OMheOQWLghqHFodmZktn1ccGPvpbsake443IQwvwhADNiS1+7n7kGieX4GBAV/kG/BJ69Yn4xNAFGJldkzJP8e1vcGNRyR7CLu7kR6LTJ1v7SwgYoBiEhno5a8YZOwiWPo386hyD7maA6E3WFpit7IotJs9ijW+1msAp0o8YqgKnLWclSCUXn/qDFFrcENC8MN4d6qSfSL5vsI0J/oiqGMZr3zb4TawP/d7iNsrqxOV2zrodu5d3hRZUcd0Uyx/aUJslkhnH7sLKKWoqfLduU+R8UA9NSi+xTPKfdhh82/YgcIDpKiK5D/ri4i6nwybLeUQUMekPfZL4GgepdbGM1I/TutcYiZpu+LLorV8A4Cibqo4Fqj2wnZbjxA7/Mo4KjcObmAaWGTVY=
+  file: $FRAMEWORK_NAME.framework.zip
+  skip_cleanup: true
+  on:
+    repo: enricenrich/EECellSwipeGestureRecognizer
+    tags: true
