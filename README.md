@@ -22,13 +22,45 @@ This library is writen in Swift based on [DRCellSlideGestureRecognizer](https://
 
 ### CocoaPods
 
+CocoaPods is a dependency manager for Objective-C and Swift projects. It has thousands of libraries and can help you scale your projects elegantly. You can install it with the following command:
+
+`gem install cocoapods`
+
+#### Podfile
+
+To integrate EECellSwipeGestureRecognizer into your Xcode project using CocoaPods, specify it in your Podfile:
+
 ```
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
-use_frameworks!
 
-pod 'EECellSwipeGestureRecognizer', '~> 0.4.2'
+platform :ios, '8.0'
+
+target 'TargetName' do
+pod 'EECellSwipeGestureRecognizer', '~> 1.0'
+end
 ```
+
+Then, run the following command:
+
+`pod install`
+
+### Carthage
+
+Carthage is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with Homebrew using the following command:
+
+```
+brew update
+brew install carthage
+```
+
+To integrate EECellSwipeGestureRecognizer into your Xcode project using Carthage, specify it in your Cartfile:
+
+`github "enricenrich/EECellSwipeGestureRecognizer" ~> 1.0`
+
+Run `carthage` to build the framework and drag the built `EECellSwipeGestureRecognizer.framework` into your Xcode project.
 
 ### Manual
 
@@ -68,8 +100,8 @@ cell.addGestureRecognizer(gestureRecognizer)
 There are multiple `EECellSwipeAction` properties available for you to customize the appearence and interactivity of the cell:
 
 * `behavior`: how the action will behave once triggered by the user. Possible values:
-  * `EECellSwipeActionBehavior.Pull`: the cell returns to its original position.
-  * `EECellSlideActionBehavior.Push`: the cell is pushed to the edge of the table.
+* `EECellSwipeActionBehavior.Pull`: the cell returns to its original position.
+* `EECellSlideActionBehavior.Push`: the cell is pushed to the edge of the table.
 * `icon`: the image to be displayed for the action.
 * `iconMargin`: the margin for the icon.
 * `activeColor`: the color of icon when the action is active.
