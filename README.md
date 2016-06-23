@@ -1,8 +1,8 @@
 # EECellSwipeGestureRecognizer
 
-[![CocoaPods](https://img.shields.io/cocoapods/v/EECellSwipeGestureRecognizer.svg?maxAge=2592000)]()
+[![CocoaPods](https://img.shields.io/cocoapods/v/EECellSwipeGestureRecognizer.svg?maxAge=2592000)](https://cocoapods.org/pods/EECellSwipeGestureRecognizer)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Travis](https://img.shields.io/travis/enricenrich/EECellSwipeGestureRecognizer.svg?maxAge=2592000)]()
+[![Travis](https://img.shields.io/travis/enricenrich/EECellSwipeGestureRecognizer.svg?maxAge=2592000)](https://travis-ci.org)
 [![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg?maxAge=2592000)]()
 
 A clean and easy way to implement swipe actions to UITableViewCell. You'll simply have to add a gesture recognizer to the cells that you want. That's all; you don't have to subclass anything.
