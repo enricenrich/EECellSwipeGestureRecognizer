@@ -55,7 +55,7 @@ public class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureReco
             case .Changed:
                 self.updateCellPosition()
                 
-                if let tableView = self.tableView where CGColorGetAlpha(cell.contentView.backgroundColor?.CGColor) == 0 {
+                if let tableView = self.tableView, let backgroundColor = cell.contentView.backgroundColor where CGColorGetAlpha(backgroundColor.CGColor) == 0 {
                     cell.contentView.backgroundColor = tableView.backgroundColor
                 }
                 
