@@ -8,19 +8,19 @@
 
 import UIKit
 
-open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecognizerDelegate {
+open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
 
-    // MARK: Properties
+    // MARK: - Properties
     
-    open var isSwipeActive: Bool = false
     open var animationTime: TimeInterval = 0.2 // Default is 0.2
+    open var isSwipeActive = false
     
-    fileprivate var leftActions: [EECellSwipeAction] = []
-    fileprivate var rightActions: [EECellSwipeAction] = []
+    fileprivate var leftActions = [EECellSwipeAction]()
+    fileprivate var rightActions = [EECellSwipeAction]()
         
-    fileprivate var actionView: EECellSwipeActionView = EECellSwipeActionView()
+    fileprivate var actionView = EECellSwipeActionView()
     
-    // MARK: Initialize
+    // MARK: - Initialize
     
     public init() {
         super.init(target: nil, action: nil)
@@ -29,14 +29,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         self.addTarget(self, action: #selector(EECellSwipeGestureRecognizer.handlePan))
     }
     
-    // MARK: UIGestureRecognizerDelegate
-    
-    open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let velocity: CGPoint = self.velocity(in: self.view)
-        return fabs(velocity.x) > fabs(velocity.y)
-    }
-    
-    // MARK: Actions
+    // MARK: - Actions
     
     @objc fileprivate func handlePan() {
         if let cell = self.cell {
@@ -78,9 +71,9 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         }
     }
     
-    // MARK: Public API
+    // MARK: - Public API
     
-    open func addActions(_ actions: Array<EECellSwipeAction>) {
+    open func add(actions: [EECellSwipeAction]) {
         for action in actions {
             if action.fraction > 0 {
                 self.leftActions.append(action)
@@ -90,7 +83,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         }
     }
     
-    open func removeActions(_ actions: Array<EECellSwipeAction>) {
+    open func remove(actions: [EECellSwipeAction]) {
         for action in actions {
             if action.fraction > 0 {
                 if let index = self.leftActions.index(of: action) {
@@ -117,7 +110,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         self.rightActions.removeAll()
     }
     
-    open func swipeToOrigin(_ animated: Bool, completion: ((_ finished: Bool) -> Void)?) {
+    open func swipeToOrigin(animated: Bool, completion: ((_ finished: Bool) -> Void)?) {
         self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()
             
@@ -127,7 +120,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         })
     }
     
-    // MARK: Private API
+    // MARK: - Private API
     
     fileprivate var tableView: UITableView? {
         get {
@@ -282,6 +275,17 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer, UIGestureRecogn
         }
         
         return 0.0
+    }
+    
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension EECellSwipeGestureRecognizer: UIGestureRecognizerDelegate {
+    
+    open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let velocity: CGPoint = self.velocity(in: self.view)
+        return fabs(velocity.x) > fabs(velocity.y)
     }
     
 }

@@ -11,11 +11,11 @@ import EECellSwipeGestureRecognizer
 
 class MainViewController: UITableViewController {
 
-    // MARK: Properties
+    // MARK: - Properties
     
     fileprivate var rows = [UITableViewCell]()
     
-    // MARK: Override
+    // MARK: - Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class MainViewController: UITableViewController {
         self.tableView.rowHeight = 60
     }
     
-    // MARK: UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -47,13 +47,13 @@ class MainViewController: UITableViewController {
         }
     }
     
-    // MARK: Private API
+    // MARK: - Private API
     
     fileprivate func prepareDataArray() {
         self.rows = [self.rightPushSwipeCell, self.leftPullSwipeCell, self.rightAndLeftSwipeCell]
     }
     
-    // MARK: Getters
+    // MARK: - Getters
     
     fileprivate lazy var rightPushSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
@@ -71,13 +71,13 @@ class MainViewController: UITableViewController {
             
             let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) -> Void in
-                slideGestureRecognizer.swipeToOrigin(true, completion: nil)
+                slideGestureRecognizer.swipeToOrigin(animated: true, completion: nil)
             }))
             
             self.present(alert, animated: true, completion: nil)
         }
         
-        slideGestureRecognizer.addActions([rightPushAction])
+        slideGestureRecognizer.add(actions: [rightPushAction])
         
         cell.addGestureRecognizer(slideGestureRecognizer)
         return cell
@@ -98,7 +98,7 @@ class MainViewController: UITableViewController {
             print("Left Pull")
         }
         
-        slideGestureRecognizer.addActions([leftPullAction])
+        slideGestureRecognizer.add(actions: [leftPullAction])
         
         cell.addGestureRecognizer(slideGestureRecognizer)
         return cell
@@ -120,7 +120,7 @@ class MainViewController: UITableViewController {
             
             let alert = UIAlertController(title: "Swiped", message: "Right Push", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) -> Void in
-                slideGestureRecognizer.swipeToOrigin(true, completion: nil)
+                slideGestureRecognizer.swipeToOrigin(animated: true, completion: nil)
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -134,7 +134,7 @@ class MainViewController: UITableViewController {
             print("Left Pull")
         }
         
-        slideGestureRecognizer.addActions([rightPushAction, leftPullAction])
+        slideGestureRecognizer.add(actions: [rightPushAction, leftPullAction])
         
         cell.addGestureRecognizer(slideGestureRecognizer)
         return cell

@@ -17,7 +17,7 @@ import UIKit
 
 open class EECellSwipeAction: NSObject {
 
-    // MARK: Properties
+    // MARK: - Properties
     
     open var behavior: EECellSwipeActionBehavior
     open fileprivate(set) var fraction: CGFloat

@@ -10,7 +10,7 @@ import UIKit
 
 open class EECellSwipeActionView: UIView {
 
-    // MARK: Properties
+    // MARK: - Properties
     
     open var active: Bool = false {
         didSet {
@@ -33,7 +33,7 @@ open class EECellSwipeActionView: UIView {
     
     fileprivate var iconImageView: UIImageView = UIImageView()
     
-    // MARK: Initialize
+    // MARK: - Initialize
     
     init() {
         super.init(frame: CGRect.zero)
@@ -44,7 +44,7 @@ open class EECellSwipeActionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Public API
+    // MARK: - Public API
     
     open func cellDidUpdatePosition(_ cell: UITableViewCell) {
         if let image = self.iconImageView.image, let action = self.action {
@@ -53,7 +53,7 @@ open class EECellSwipeActionView: UIView {
         }
     }
     
-    // MARK: Private API
+    // MARK: - Private API
     
     fileprivate func updateIconFrame() {
         if let action = self.action {
