@@ -7,7 +7,6 @@ env:
   global:
   - FRAMEWORK_NAME=EECellSwipeGestureRecognizer
 before_install:
-- rvm get head
 - brew update
 - brew outdated carthage || brew upgrade carthage
 before_deploy:
