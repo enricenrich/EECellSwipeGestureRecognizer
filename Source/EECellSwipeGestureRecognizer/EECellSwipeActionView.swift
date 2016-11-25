@@ -8,22 +8,22 @@
 
 import UIKit
 
-public class EECellSwipeActionView: UIView {
+open class EECellSwipeActionView: UIView {
 
     // MARK: Properties
     
-    public var active: Bool = false {
+    open var active: Bool = false {
         didSet {
             if oldValue != self.active {
                 self.tint()
             }
         }
     }
-    public var action: EECellSwipeAction? {
+    open var action: EECellSwipeAction? {
         didSet {
             if let action = self.action {
-                self.iconImageView.image = action.icon.imageWithRenderingMode(.AlwaysTemplate)
-                self.iconImageView.contentMode = action.fraction >= 0 ? .Left : .Right
+                self.iconImageView.image = action.icon.withRenderingMode(.alwaysTemplate)
+                self.iconImageView.contentMode = action.fraction >= 0 ? .left : .right
                 
                 self.tint()
                 self.updateIconFrame()
@@ -31,12 +31,12 @@ public class EECellSwipeActionView: UIView {
         }
     }
     
-    private var iconImageView: UIImageView = UIImageView()
+    fileprivate var iconImageView: UIImageView = UIImageView()
     
     // MARK: Initialize
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.addSubview(self.iconImageView)
     }
 
@@ -46,7 +46,7 @@ public class EECellSwipeActionView: UIView {
 
     // MARK: Public API
     
-    public func cellDidUpdatePosition(cell: UITableViewCell) {
+    open func cellDidUpdatePosition(_ cell: UITableViewCell) {
         if let image = self.iconImageView.image, let action = self.action {
             self.updateIconFrame()
             self.iconImageView.alpha = fabs(cell.contentView.frame.origin.x) / (image.size.width + action.iconMargin * 2)
@@ -55,14 +55,14 @@ public class EECellSwipeActionView: UIView {
     
     // MARK: Private API
     
-    private func updateIconFrame() {
+    fileprivate func updateIconFrame() {
         if let action = self.action {
-            self.iconImageView.frame = CGRectMake(0, 0, self.frame.width - action.iconMargin * 2, self.frame.height)
-            self.iconImageView.center = CGPointMake(self.center.x, self.iconImageView.frame.height / 2)
+            self.iconImageView.frame = CGRect(x: 0, y: 0, width: self.frame.width - action.iconMargin * 2, height: self.frame.height)
+            self.iconImageView.center = CGPoint(x: self.center.x, y: self.iconImageView.frame.height / 2)
         }
     }
     
-    private func tint() {
+    fileprivate func tint() {
         if let action = self.action {
             self.iconImageView.tintColor = self.active ? action.activeColor : action.inactiveColor
             self.backgroundColor = self.active ? action.activeBackgroundColor : action.inactiveBackgroundColor

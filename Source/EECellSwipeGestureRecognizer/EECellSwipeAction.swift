@@ -10,42 +10,42 @@ import UIKit
 
 @objc public enum EECellSwipeActionBehavior: Int {
     
-    case Pull
-    case Push
+    case pull
+    case push
     
 }
 
-public class EECellSwipeAction: NSObject {
+open class EECellSwipeAction: NSObject {
 
     // MARK: Properties
     
-    public var behavior: EECellSwipeActionBehavior
-    public private(set) var fraction: CGFloat
+    open var behavior: EECellSwipeActionBehavior
+    open fileprivate(set) var fraction: CGFloat
     
-    public var activeBackgroundColor: UIColor
-    public var inactiveBackgroundColor: UIColor
+    open var activeBackgroundColor: UIColor
+    open var inactiveBackgroundColor: UIColor
     
-    public var activeColor: UIColor
-    public var inactiveColor: UIColor
+    open var activeColor: UIColor
+    open var inactiveColor: UIColor
     
-    public var icon: UIImage
-    public var iconMargin: CGFloat
+    open var icon: UIImage
+    open var iconMargin: CGFloat
     
-    public var willTrigger: ((tableView: UITableView, indexPath: NSIndexPath) -> Void)?
-    public var didTrigger: ((tableView: UITableView, indexPath: NSIndexPath) -> Void)?
-    public var didChangeState: ((action: EECellSwipeAction, active: Bool) -> Void)?
+    open var willTrigger: ((_ tableView: UITableView, _ indexPath: IndexPath) -> Void)?
+    open var didTrigger: ((_ tableView: UITableView, _ indexPath: IndexPath) -> Void)?
+    open var didChangeState: ((_ action: EECellSwipeAction, _ active: Bool) -> Void)?
     
     // MARK: Initialize
     
     public init(fraction: CGFloat) {
-        self.behavior = .Push
+        self.behavior = .push
         self.icon = UIImage()
         self.fraction = fraction
         
-        self.activeBackgroundColor = UIColor.blueColor()
+        self.activeBackgroundColor = UIColor.blue
         self.inactiveBackgroundColor = UIColor(white: 0.94, alpha: 1.0)
-        self.activeColor = UIColor.whiteColor()
-        self.inactiveColor = UIColor.whiteColor()
+        self.activeColor = UIColor.white
+        self.inactiveColor = UIColor.white
         self.iconMargin = 25.0
         
         super.init()

@@ -13,7 +13,7 @@ class MainViewController: UITableViewController {
 
     // MARK: Properties
     
-    private var rows: Array<UITableViewCell> = []
+    fileprivate var rows = [UITableViewCell]()
     
     // MARK: Override
     
@@ -21,7 +21,7 @@ class MainViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "EECellSwipeGestureRecognizer"
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         self.prepareDataArray()
         
@@ -31,15 +31,15 @@ class MainViewController: UITableViewController {
     
     // MARK: UITableViewDataSource
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rows.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.rows.count > 0 {
             return self.rows[indexPath.row]
         } else {
@@ -49,13 +49,13 @@ class MainViewController: UITableViewController {
     
     // MARK: Private API
     
-    private func prepareDataArray() {
+    fileprivate func prepareDataArray() {
         self.rows = [self.rightPushSwipeCell, self.leftPullSwipeCell, self.rightAndLeftSwipeCell]
     }
     
     // MARK: Getters
     
-    private lazy var rightPushSwipeCell: UITableViewCell = {
+    fileprivate lazy var rightPushSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Right Push"
         
@@ -82,7 +82,7 @@ class MainViewController: UITableViewController {
         return cell
     }()
     
-    private lazy var leftPullSwipeCell: UITableViewCell = {
+    fileprivate lazy var leftPullSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Left Pull"
         
@@ -102,7 +102,7 @@ class MainViewController: UITableViewController {
         return cell
     }()
     
-    private lazy var rightAndLeftSwipeCell: UITableViewCell = {
+    fileprivate lazy var rightAndLeftSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
         cell.textLabel?.text = "Right Push & Left Pull"
         
