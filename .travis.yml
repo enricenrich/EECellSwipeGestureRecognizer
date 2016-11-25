@@ -1,7 +1,5 @@
 language: objective-c
 osx_image: xcode8
-xcode_workspace: EECellSwipeGestureRecognizer.xcworkspace
-xcode_scheme: EECellSwipeGestureRecognizer
 xcode_sdk: iphonesimulator10.0
 env:
   global:
@@ -12,6 +10,9 @@ before_install:
 before_deploy:
 - carthage build --no-skip-current
 - carthage archive $FRAMEWORK_NAME
+script:
+- set -o pipefail
+- travis_retry xcodebuild -workspace EECellSwipeGestureRecognizer.xcworkspace -scheme "EECellSwipeGestureRecognizer" -destination "platform=iOS Simulator,name=iPhone 6" build-for-testing test | xcpretty
 deploy:
   provider: releases
   api_key:
