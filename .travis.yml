@@ -1,12 +1,13 @@
 language: objective-c
-osx_image: xcode8.1
+osx_image: xcode8
 xcode_workspace: EECellSwipeGestureRecognizer.xcworkspace
 xcode_scheme: EECellSwipeGestureRecognizer
-xcode_sdk: iphonesimulator10.1
+xcode_sdk: iphonesimulator10.0
 env:
   global:
   - FRAMEWORK_NAME=EECellSwipeGestureRecognizer
 before_install:
+- rvm get head
 - brew update
 - brew outdated carthage || brew upgrade carthage
 before_deploy:
