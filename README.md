@@ -18,7 +18,7 @@ This library is writen in Swift based on [DRCellSlideGestureRecognizer](https://
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+> **Embedded frameworks require a minimum deployment target of iOS 8, use Xcode 8 and Swift 3.**
 
 ### CocoaPods
 
