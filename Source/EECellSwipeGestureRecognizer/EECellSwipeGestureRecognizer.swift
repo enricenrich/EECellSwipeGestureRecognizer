@@ -199,7 +199,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         var action: EECellSwipeAction? = actions.first
         
         for a in actions {
-            if fabs(self.fractionForCurrentCellPosition()) > fabs(a.fraction) {
+            if abs(self.fractionForCurrentCellPosition()) > abs(a.fraction) {
                 action = a
             } else {
                 break
@@ -211,7 +211,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     
     fileprivate func isActiveForCurrentCellPosition() -> Bool {
         if let currentAction = self.actionForCurrentCellPosition() {
-            return fabs(self.fractionForCurrentCellPosition()) >= fabs(currentAction.fraction)
+            return abs(self.fractionForCurrentCellPosition()) >= abs(currentAction.fraction)
         }
         
         return false
@@ -234,7 +234,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     }
     
     fileprivate func translateCellHorizontally(_ horizontalTranslation: CGFloat, animationDuration: TimeInterval, completion: ((_ finished: Bool) -> Void)?) {
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIViewAnimationOptions() , animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions() , animations: { () -> Void in
             self.translateCellHorizontally(horizontalTranslation)
         }, completion: completion)
     }
@@ -271,7 +271,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     
     fileprivate func horizontalTranslationForActionBehavior() -> CGFloat {
         if let action = self.actionView.action, let cell = self.cell {
-            return action.behavior == .pull ? 0 : cell.contentView.frame.width * (action.fraction / fabs(action.fraction))
+            return action.behavior == .pull ? 0 : cell.contentView.frame.width * (action.fraction / abs(action.fraction))
         }
         
         return 0.0
@@ -285,7 +285,7 @@ extension EECellSwipeGestureRecognizer: UIGestureRecognizerDelegate {
     
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let velocity: CGPoint = self.velocity(in: self.view)
-        return fabs(velocity.x) > fabs(velocity.y)
+        return abs(velocity.x) > abs(velocity.y)
     }
     
 }
