@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C5AC66E52188B33100E915B2 /* EECellSwipeGestureRecognizer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5AC66E42188B33100E915B2 /* EECellSwipeGestureRecognizer.framework */; };
+		C5AC66E62188B33100E915B2 /* EECellSwipeGestureRecognizer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5AC66E42188B33100E915B2 /* EECellSwipeGestureRecognizer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5D46ED91C37E94C009663A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D46ED81C37E94C009663A4 /* AppDelegate.swift */; };
 		C5D46EDB1C37E94C009663A4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D46EDA1C37E94C009663A4 /* MainViewController.swift */; };
 		C5D46EE01C37E94C009663A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5D46EDF1C37E94C009663A4 /* Assets.xcassets */; };
@@ -20,6 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C5AC66E62188B33100E915B2 /* EECellSwipeGestureRecognizer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C5AC66E42188B33100E915B2 /* EECellSwipeGestureRecognizer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EECellSwipeGestureRecognizer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5D46ED61C37E94C009663A4 /* EECellSwipeGestureRecognizerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EECellSwipeGestureRecognizerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5D46ED81C37E94C009663A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5D46EDA1C37E94C009663A4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AC66E52188B33100E915B2 /* EECellSwipeGestureRecognizer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +54,7 @@
 		C5D46EBD1C37E917009663A4 = {
 			isa = PBXGroup;
 			children = (
+				C5AC66E42188B33100E915B2 /* EECellSwipeGestureRecognizer.framework */,
 				C5D46ED71C37E94C009663A4 /* EECellSwipeGestureRecognizerDemo */,
 				C5D46EC81C37E917009663A4 /* Products */,
 			);
