@@ -47,6 +47,12 @@ class MainViewController: UITableViewController {
         }
     }
     
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     // MARK: - Private API
     
     fileprivate func prepareDataArray() {
@@ -57,7 +63,6 @@ class MainViewController: UITableViewController {
     
     fileprivate lazy var rightPushSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
-        cell.contentView.backgroundColor = UIColor.white
         cell.textLabel?.text = "Right Push"
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
@@ -85,7 +90,6 @@ class MainViewController: UITableViewController {
     
     fileprivate lazy var leftPullSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
-        cell.contentView.backgroundColor = UIColor.white
         cell.textLabel?.text = "Left Pull"
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
@@ -106,7 +110,6 @@ class MainViewController: UITableViewController {
     
     fileprivate lazy var rightAndLeftSwipeCell: UITableViewCell = {
         let cell: UITableViewCell = UITableViewCell()
-        cell.contentView.backgroundColor = UIColor.white
         cell.textLabel?.text = "Right Push & Left Pull"
         
         let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()

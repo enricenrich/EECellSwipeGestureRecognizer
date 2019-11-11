@@ -20,6 +20,8 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         
     fileprivate var actionView = EECellSwipeActionView()
     
+    fileprivate var originalContentViewBackgroundColor: UIColor?
+    
     // MARK: - Initialize
     
     public init() {
@@ -33,8 +35,6 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     
     @objc fileprivate func handlePan() {
         if let cell = self.cell {
-            var contentViewBackgroundColor: UIColor?
-
             switch self.state {
             case .began:
                 self.sortActions()
@@ -48,11 +48,10 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                 self.actionView.frame = cell.contentView.bounds
                 self.actionView.active = false
 
-                contentViewBackgroundColor = cell.contentView.backgroundColor
+                originalContentViewBackgroundColor = cell.contentView.backgroundColor
             case .changed:
                 self.updateCellPosition()
-
-                cell.contentView.backgroundColor = contentViewBackgroundColor ?? cell.backgroundColor
+                self.updateContentViewBackgroundColor()
                 
                 if self.isActiveForCurrentCellPosition() != self.actionView.active {
                     self.actionView.active = self.isActiveForCurrentCellPosition()
@@ -67,7 +66,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                 }
             case .ended:
                 self.performAction {
-                    self.cell?.contentView.backgroundColor = contentViewBackgroundColor
+                    self.updateContentViewBackgroundColor()
                 }
             default:
                 break
@@ -117,7 +116,8 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     open func swipeToOrigin(animated: Bool, completion: ((_ finished: Bool) -> Void)?) {
         self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()
-            
+            self.updateContentViewBackgroundColor()
+
             if let completion = completion {
                 completion(finished)
             }
@@ -219,6 +219,14 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         }
         
         return false
+    }
+    
+    fileprivate func updateContentViewBackgroundColor() {
+        if actionView.superview != nil {
+            cell?.contentView.backgroundColor = originalContentViewBackgroundColor ?? cell?.backgroundColor
+        } else {
+            cell?.contentView.backgroundColor = originalContentViewBackgroundColor
+        }
     }
     
     fileprivate func updateCellPosition() {
