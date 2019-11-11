@@ -90,11 +90,11 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     open func remove(actions: [EECellSwipeAction]) {
         for action in actions {
             if action.fraction > 0 {
-                if let index = self.leftActions.index(of: action) {
+                if let index = self.leftActions.firstIndex(of: action) {
                     self.leftActions.remove(at: index)
                 }
             } else {
-                if let index = self.rightActions.index(of: action) {
+                if let index = self.rightActions.firstIndex(of: action) {
                     self.rightActions.remove(at: index)
                 }
             }
