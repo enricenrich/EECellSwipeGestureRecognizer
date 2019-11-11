@@ -20,7 +20,7 @@ open class EECellSwipeAction: NSObject {
     // MARK: - Properties
     
     open var behavior: EECellSwipeActionBehavior
-    open fileprivate(set) var fraction: CGFloat
+    open private(set) var fraction: CGFloat
     
     open var activeBackgroundColor: UIColor
     open var inactiveBackgroundColor: UIColor

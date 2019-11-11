@@ -13,20 +13,20 @@ class MainViewController: UITableViewController {
 
     // MARK: - Properties
     
-    fileprivate var rows = [UITableViewCell]()
+    private var rows = [UITableViewCell]()
     
     // MARK: - Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "EECellSwipeGestureRecognizer"
-        self.view.backgroundColor = UIColor.white
+        title = "EECellSwipeGestureRecognizer"
+        view.backgroundColor = UIColor.white
         
-        self.prepareDataArray()
+        prepareDataArray()
         
-        self.tableView.tableFooterView = UIView()
-        self.tableView.rowHeight = 60
+        tableView.tableFooterView = UIView()
+        tableView.rowHeight = 60
     }
     
     // MARK: - UITableViewDataSource
@@ -36,12 +36,12 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rows.count
+        return rows.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.rows.count > 0 {
-            return self.rows[indexPath.row]
+        if rows.count > 0 {
+            return rows[indexPath.row]
         } else {
             return UITableViewCell()
         }
@@ -56,18 +56,18 @@ class MainViewController: UITableViewController {
     // MARK: - Private API
     
     fileprivate func prepareDataArray() {
-        self.rows = [self.rightPushSwipeCell, self.leftPullSwipeCell, self.rightAndLeftSwipeCell]
+        rows = [rightPushSwipeCell, leftPullSwipeCell, rightAndLeftSwipeCell]
     }
     
     // MARK: - Getters
     
     fileprivate lazy var rightPushSwipeCell: UITableViewCell = {
-        let cell: UITableViewCell = UITableViewCell()
+        let cell = UITableViewCell()
         cell.textLabel?.text = "Right Push"
         
-        let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
+        let slideGestureRecognizer = EECellSwipeGestureRecognizer()
         
-        let rightPushAction: EECellSwipeAction = EECellSwipeAction(fraction: 0.25)
+        let rightPushAction = EECellSwipeAction(fraction: 0.25)
         rightPushAction.icon = UIImage(named: "circle")!
         rightPushAction.activeBackgroundColor = UIColor.green
         rightPushAction.behavior = .push
@@ -89,12 +89,12 @@ class MainViewController: UITableViewController {
     }()
     
     fileprivate lazy var leftPullSwipeCell: UITableViewCell = {
-        let cell: UITableViewCell = UITableViewCell()
+        let cell = UITableViewCell()
         cell.textLabel?.text = "Left Pull"
         
-        let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
+        let slideGestureRecognizer = EECellSwipeGestureRecognizer()
         
-        let leftPullAction: EECellSwipeAction = EECellSwipeAction(fraction: -0.25)
+        let leftPullAction = EECellSwipeAction(fraction: -0.25)
         leftPullAction.icon = UIImage(named: "circle")!
         leftPullAction.activeBackgroundColor = UIColor.blue
         leftPullAction.behavior = .pull
@@ -109,12 +109,12 @@ class MainViewController: UITableViewController {
     }()
     
     fileprivate lazy var rightAndLeftSwipeCell: UITableViewCell = {
-        let cell: UITableViewCell = UITableViewCell()
+        let cell = UITableViewCell()
         cell.textLabel?.text = "Right Push & Left Pull"
         
-        let slideGestureRecognizer: EECellSwipeGestureRecognizer = EECellSwipeGestureRecognizer()
+        let slideGestureRecognizer = EECellSwipeGestureRecognizer()
         
-        let rightPushAction: EECellSwipeAction = EECellSwipeAction(fraction: 0.25)
+        let rightPushAction = EECellSwipeAction(fraction: 0.25)
         rightPushAction.icon = UIImage(named: "circle")!
         rightPushAction.activeBackgroundColor = UIColor.green
         rightPushAction.behavior = .push
@@ -129,7 +129,7 @@ class MainViewController: UITableViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-        let leftPullAction: EECellSwipeAction = EECellSwipeAction(fraction: -0.25)
+        let leftPullAction = EECellSwipeAction(fraction: -0.25)
         leftPullAction.icon = UIImage(named: "circle")!
         leftPullAction.activeBackgroundColor = UIColor.blue
         leftPullAction.behavior = .pull

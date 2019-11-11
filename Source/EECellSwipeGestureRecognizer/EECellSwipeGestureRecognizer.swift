@@ -15,62 +15,64 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     open var animationTime: TimeInterval = 0.2 // Default is 0.2
     open var isSwipeActive = false
     
-    fileprivate var leftActions = [EECellSwipeAction]()
-    fileprivate var rightActions = [EECellSwipeAction]()
+    private var leftActions = [EECellSwipeAction]()
+    private var rightActions = [EECellSwipeAction]()
         
-    fileprivate var actionView = EECellSwipeActionView()
+    private var actionView = EECellSwipeActionView()
     
-    fileprivate var originalContentViewBackgroundColor: UIColor?
+    private var originalContentViewBackgroundColor: UIColor?
     
     // MARK: - Initialize
     
     public init() {
         super.init(target: nil, action: nil)
         
-        self.delegate = self
-        self.addTarget(self, action: #selector(EECellSwipeGestureRecognizer.handlePan))
+        delegate = self
+        addTarget(self, action: #selector(EECellSwipeGestureRecognizer.handlePan))
     }
     
     // MARK: - Actions
     
-    @objc fileprivate func handlePan() {
-        if let cell = self.cell {
-            switch self.state {
-            case .began:
-                self.sortActions()
-                
-                if self.actionView.superview != nil {
-                    self.actionView.removeFromSuperview()
-                }
-                
-                cell.insertSubview(self.actionView, at: 0)
-                
-                self.actionView.frame = cell.contentView.bounds
-                self.actionView.active = false
-
-                originalContentViewBackgroundColor = cell.contentView.backgroundColor
-            case .changed:
-                self.updateCellPosition()
-                self.updateContentViewBackgroundColor()
-                
-                if self.isActiveForCurrentCellPosition() != self.actionView.active {
-                    self.actionView.active = self.isActiveForCurrentCellPosition()
-                    
-                    if let didChangeState = self.actionView.action?.didChangeState, let action = self.actionView.action {
-                        didChangeState(action, self.actionView.active)
-                    }
-                }
-                
-                if self.actionForCurrentCellPosition() != self.actionView.action {
-                    self.actionView.action = self.actionForCurrentCellPosition()
-                }
-            case .ended:
-                self.performAction {
-                    self.updateContentViewBackgroundColor()
-                }
-            default:
-                break
+    @objc private func handlePan() {
+        guard let cell = self.cell else {
+            return
+        }
+        
+        switch state {
+        case .began:
+            sortActions()
+            
+            if actionView.superview != nil {
+                actionView.removeFromSuperview()
             }
+            
+            cell.insertSubview(actionView, at: 0)
+            
+            actionView.frame = cell.contentView.bounds
+            actionView.active = false
+
+            originalContentViewBackgroundColor = cell.contentView.backgroundColor
+        case .changed:
+            updateCellPosition()
+            updateContentViewBackgroundColor()
+            
+            if isActiveForCurrentCellPosition() != actionView.active {
+                actionView.active = isActiveForCurrentCellPosition()
+                
+                if let didChangeState = actionView.action?.didChangeState, let action = actionView.action {
+                    didChangeState(action, actionView.active)
+                }
+            }
+            
+            if actionForCurrentCellPosition() != actionView.action {
+                actionView.action = actionForCurrentCellPosition()
+            }
+        case .ended:
+            performAction {
+                self.updateContentViewBackgroundColor()
+            }
+        default:
+            break
         }
     }
     
@@ -79,9 +81,9 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     open func add(actions: [EECellSwipeAction]) {
         for action in actions {
             if action.fraction > 0 {
-                self.leftActions.append(action)
+                leftActions.append(action)
             } else {
-                self.rightActions.append(action)
+                rightActions.append(action)
             }
         }
     }
@@ -89,32 +91,32 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     open func remove(actions: [EECellSwipeAction]) {
         for action in actions {
             if action.fraction > 0 {
-                if let index = self.leftActions.firstIndex(of: action) {
-                    self.leftActions.remove(at: index)
+                if let index = leftActions.firstIndex(of: action) {
+                    leftActions.remove(at: index)
                 }
             } else {
-                if let index = self.rightActions.firstIndex(of: action) {
-                    self.rightActions.remove(at: index)
+                if let index = rightActions.firstIndex(of: action) {
+                    rightActions.remove(at: index)
                 }
             }
         }
     }
     
     open func removeLeftActions() {
-        self.leftActions.removeAll()
+        leftActions.removeAll()
     }
     
     open func removeRightActions() {
-        self.rightActions.removeAll()
+        rightActions.removeAll()
     }
     
     open func removeAllActions() {
-        self.leftActions.removeAll()
-        self.rightActions.removeAll()
+        leftActions.removeAll()
+        rightActions.removeAll()
     }
     
     open func swipeToOrigin(animated: Bool, completion: ((_ finished: Bool) -> Void)?) {
-        self.translateCellHorizontally(0.0, animationDuration: animated ? self.animationTime : 0.0, completion: { (finished) -> Void in
+        translateCellHorizontally(0.0, animationDuration: animated ? animationTime : 0.0, completion: { (finished) -> Void in
             self.actionView.removeFromSuperview()
             self.updateContentViewBackgroundColor()
 
@@ -126,84 +128,84 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     
     // MARK: - Private API
     
-    fileprivate var tableView: UITableView? {
+    private var tableView: UITableView? {
         get {
-            if let cell = self.cell {
-                var view: UIView? = cell.superview
-                
-                while let unrappedView = view, (unrappedView is UITableView) == false {
-                    view = unrappedView.superview
-                }
-                
-                return view as? UITableView
+            guard let cell = self.cell else {
+                return nil
             }
             
-            return nil
+            var view: UIView? = cell.superview
+            
+            while let unrappedView = view, (unrappedView is UITableView) == false {
+                view = unrappedView.superview
+            }
+            
+            return view as? UITableView
         }
     }
     
-    fileprivate var cell: UITableViewCell? {
+    private var cell: UITableViewCell? {
         get {
-            if let cell = self.view as? UITableViewCell {
-                return cell
+            guard let cell = view as? UITableViewCell else {
+                return nil
             }
             
-            return nil
+            return cell
         }
     }
     
-    fileprivate var indexPath: IndexPath? {
+    private var indexPath: IndexPath? {
         get {
-            if let tableView = self.tableView, let cell = self.cell {
-                return tableView.indexPath(for: cell)
+            guard let tableView = self.tableView, let cell = self.cell else {
+                return nil
             }
             
-            return nil
+            return tableView.indexPath(for: cell)
         }
     }
     
-    fileprivate func currentHorizontalTranslation() -> CGFloat {
-        if let cell = self.cell {
-            var horizontalTranslation: CGFloat = self.translation(in: cell).x
-            
-            if (horizontalTranslation > 0 && self.leftActions.count == 0) || (horizontalTranslation < 0 && self.rightActions.count == 0) {
-                horizontalTranslation = 0.0
-            }
-            
-            return horizontalTranslation
+    private func currentHorizontalTranslation() -> CGFloat {
+        guard let cell = self.cell else {
+            return 0.0
         }
         
-        return 0.0
+        var horizontalTranslation: CGFloat = translation(in: cell).x
+        
+        if (horizontalTranslation > 0 && leftActions.count == 0) || (horizontalTranslation < 0 && rightActions.count == 0) {
+            horizontalTranslation = 0.0
+        }
+        
+        return horizontalTranslation
     }
     
-    fileprivate func sortActions() {
-        self.leftActions.sort { (action1, action2) -> Bool in
+    private func sortActions() {
+        leftActions.sort { (action1, action2) -> Bool in
             return action1.fraction > action2.fraction
         }
         
-        self.rightActions.sort { (action1, action2) -> Bool in
+        rightActions.sort { (action1, action2) -> Bool in
             return action1.fraction < action2.fraction
         }
     }
     
-    fileprivate func fractionForCurrentCellPosition() -> CGFloat {
-        if let cell = self.cell {
-            return cell.contentView.frame.origin.x / cell.contentView.frame.width
+    private func fractionForCurrentCellPosition() -> CGFloat {
+        guard let cell = self.cell else {
+            return 0.0
         }
         
-        return 0.0
+        return cell.contentView.frame.origin.x / cell.contentView.frame.width
     }
     
-    fileprivate func actionsForCurrentCellPosition() -> Array<EECellSwipeAction> {
-        return self.fractionForCurrentCellPosition() > 0 ? self.leftActions : self.rightActions
+    private func actionsForCurrentCellPosition() -> [EECellSwipeAction] {
+        return fractionForCurrentCellPosition() > 0 ? leftActions : rightActions
     }
     
-    fileprivate func actionForCurrentCellPosition() -> EECellSwipeAction? {
-        let actions: Array<EECellSwipeAction> = self.actionsForCurrentCellPosition()
+    private func actionForCurrentCellPosition() -> EECellSwipeAction? {
+        let actions = actionsForCurrentCellPosition()
         var action: EECellSwipeAction? = actions.first
         
         for a in actions {
-            if abs(self.fractionForCurrentCellPosition()) > abs(a.fraction) {
+            if abs(fractionForCurrentCellPosition()) > abs(a.fraction) {
                 action = a
             } else {
                 break
@@ -213,15 +215,15 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         return action
     }
     
-    fileprivate func isActiveForCurrentCellPosition() -> Bool {
-        if let currentAction = self.actionForCurrentCellPosition() {
-            return abs(self.fractionForCurrentCellPosition()) >= abs(currentAction.fraction)
+    private func isActiveForCurrentCellPosition() -> Bool {
+        if let currentAction = actionForCurrentCellPosition() {
+            return abs(fractionForCurrentCellPosition()) >= abs(currentAction.fraction)
         }
         
         return false
     }
     
-    fileprivate func updateContentViewBackgroundColor() {
+    private func updateContentViewBackgroundColor() {
         if actionView.superview != nil {
             cell?.contentView.backgroundColor = originalContentViewBackgroundColor ?? cell?.backgroundColor
         } else {
@@ -229,37 +231,35 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         }
     }
     
-    fileprivate func updateCellPosition() {
-        let horizontalTranslation: CGFloat = self.currentHorizontalTranslation()
-        
+    private func updateCellPosition() {
         if let cell = self.cell {
-            self.actionView.cellDidUpdatePosition(cell)
+            actionView.cellDidUpdatePosition(cell)
         }
         
-        self.translateCellHorizontally(horizontalTranslation)
+        translateCellHorizontally(currentHorizontalTranslation())
     }
     
-    fileprivate func translateCellHorizontally(_ horizontalTranslation: CGFloat) {
-        if let cell = cell {
-            cell.contentView.center = CGPoint(x: cell.contentView.frame.width / 2 + horizontalTranslation, y: cell.contentView.center.y)
+    private func translateCellHorizontally(_ horizontalTranslation: CGFloat) {
+        guard let cell = cell else {
+            return
         }
+        
+        cell.contentView.center = CGPoint(x: cell.contentView.frame.width / 2 + horizontalTranslation, y: cell.contentView.center.y)
     }
     
-    fileprivate func translateCellHorizontally(_ horizontalTranslation: CGFloat, animationDuration: TimeInterval, completion: ((_ finished: Bool) -> Void)?) {
+    private func translateCellHorizontally(_ horizontalTranslation: CGFloat, animationDuration: TimeInterval, completion: ((_ finished: Bool) -> Void)?) {
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions() , animations: { () -> Void in
             self.translateCellHorizontally(horizontalTranslation)
         }, completion: completion)
     }
     
-    fileprivate func performAction(completion: (() -> Void)? = nil) {
-        if self.actionView.active {
-            let horizontalTranslation = self.horizontalTranslationForActionBehavior()
-            
-            if let willTrigger = self.actionView.action?.willTrigger, let tableView = self.tableView, let indexPath = self.indexPath {
+    private func performAction(completion: (() -> Void)? = nil) {
+        if actionView.active {
+            if let willTrigger = actionView.action?.willTrigger, let tableView = self.tableView, let indexPath = self.indexPath {
                 willTrigger(tableView, indexPath)
             }
             
-            self.translateCellHorizontally(horizontalTranslation, animationDuration: self.animationTime, completion: { (finished) -> Void in
+            translateCellHorizontally(horizontalTranslationForActionBehavior(), animationDuration: animationTime, completion: { (finished) -> Void in
                 if self.actionView.action?.behavior == .pull {
                     self.actionView.removeFromSuperview()
                 }
@@ -275,17 +275,17 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                 completion?()
             })
         } else {
-            self.isSwipeActive = false
+            isSwipeActive = false
             
-            self.translateCellHorizontally(0.0, animationDuration: self.animationTime, completion: { (finished) -> Void in
+            translateCellHorizontally(0.0, animationDuration: animationTime, completion: { (finished) -> Void in
                 self.actionView.removeFromSuperview()
                 completion?()
             })
         }
     }
     
-    fileprivate func horizontalTranslationForActionBehavior() -> CGFloat {
-        if let action = self.actionView.action, let cell = self.cell {
+    private func horizontalTranslationForActionBehavior() -> CGFloat {
+        if let action = actionView.action, let cell = self.cell {
             return action.behavior == .pull ? 0 : cell.contentView.frame.width * (action.fraction / abs(action.fraction))
         }
         
@@ -299,7 +299,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
 extension EECellSwipeGestureRecognizer: UIGestureRecognizerDelegate {
     
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let velocity: CGPoint = self.velocity(in: self.view)
+        let velocity = self.velocity(in: view)
         return abs(velocity.x) > abs(velocity.y)
     }
     
