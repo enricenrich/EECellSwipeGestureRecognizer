@@ -33,6 +33,8 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     
     @objc fileprivate func handlePan() {
         if let cell = self.cell {
+            var contentViewBackgroundColor: UIColor?
+
             switch self.state {
             case .began:
                 self.sortActions()
@@ -45,12 +47,12 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                 
                 self.actionView.frame = cell.contentView.bounds
                 self.actionView.active = false
+
+                contentViewBackgroundColor = cell.contentView.backgroundColor
             case .changed:
                 self.updateCellPosition()
-                
-                if let tableView = self.tableView, let backgroundColor = cell.contentView.backgroundColor, backgroundColor.cgColor.alpha == 0 {
-                    cell.contentView.backgroundColor = tableView.backgroundColor
-                }
+
+                cell.contentView.backgroundColor = contentViewBackgroundColor ?? cell.backgroundColor
                 
                 if self.isActiveForCurrentCellPosition() != self.actionView.active {
                     self.actionView.active = self.isActiveForCurrentCellPosition()
@@ -64,7 +66,9 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                     self.actionView.action = self.actionForCurrentCellPosition()
                 }
             case .ended:
-                self.performAction()
+                self.performAction {
+                    self.cell?.contentView.backgroundColor = contentViewBackgroundColor
+                }
             default:
                 break
             }
@@ -239,7 +243,7 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
         }, completion: completion)
     }
     
-    fileprivate func performAction() {
+    fileprivate func performAction(completion: (() -> Void)? = nil) {
         if self.actionView.active {
             let horizontalTranslation = self.horizontalTranslationForActionBehavior()
             
@@ -259,12 +263,15 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
                 if let didTrigger = self.actionView.action?.didTrigger, let tableView = self.tableView, let indexPath = self.indexPath {
                     didTrigger(tableView, indexPath)
                 }
+
+                completion?()
             })
         } else {
             self.isSwipeActive = false
             
             self.translateCellHorizontally(0.0, animationDuration: self.animationTime, completion: { (finished) -> Void in
                 self.actionView.removeFromSuperview()
+                completion?()
             })
         }
     }
