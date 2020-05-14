@@ -35,7 +35,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'TargetName' do
-pod 'EECellSwipeGestureRecognizer', '~> 1.0'
+pod 'EECellSwipeGestureRecognizer', '~> 1.2'
 end
 ```
 
@@ -56,7 +56,7 @@ brew install carthage
 
 To integrate EECellSwipeGestureRecognizer into your Xcode project using Carthage, specify it in your Cartfile:
 
-`github "enricenrich/EECellSwipeGestureRecognizer" ~> 1.0`
+`github "enricenrich/EECellSwipeGestureRecognizer" ~> 1.2`
 
 Run `carthage` to build the framework and drag the built `EECellSwipeGestureRecognizer.framework` into your Xcode project.
 
