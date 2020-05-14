@@ -2,7 +2,6 @@
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/EECellSwipeGestureRecognizer.svg?maxAge=2592000)](https://cocoapods.org/pods/EECellSwipeGestureRecognizer)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Travis](https://img.shields.io/travis/enricenrich/EECellSwipeGestureRecognizer.svg?maxAge=2592000)](https://travis-ci.org)
 [![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg?maxAge=2592000)]()
 
 A clean and easy way to implement swipe actions to UITableViewCell. You'll simply have to add a gesture recognizer to the cells that you want. That's all; you don't have to subclass anything.
@@ -35,7 +34,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'TargetName' do
-pod 'EECellSwipeGestureRecognizer', '~> 1.2'
+pod 'EECellSwipeGestureRecognizer', '~> 1.3'
 end
 ```
 
@@ -56,7 +55,7 @@ brew install carthage
 
 To integrate EECellSwipeGestureRecognizer into your Xcode project using Carthage, specify it in your Cartfile:
 
-`github "enricenrich/EECellSwipeGestureRecognizer" ~> 1.2`
+`github "enricenrich/EECellSwipeGestureRecognizer" ~> 1.3`
 
 Run `carthage` to build the framework and drag the built `EECellSwipeGestureRecognizer.framework` into your Xcode project.
 
