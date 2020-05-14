@@ -27,6 +27,10 @@ open class EECellSwipeGestureRecognizer: UIPanGestureRecognizer {
     public init() {
         super.init(target: nil, action: nil)
         
+        if #available(iOS 13.4, *) {
+            allowedScrollTypesMask = .continuous
+        }
+        
         delegate = self
         addTarget(self, action: #selector(EECellSwipeGestureRecognizer.handlePan))
     }
